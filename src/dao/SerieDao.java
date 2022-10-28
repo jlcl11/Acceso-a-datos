@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -10,7 +11,7 @@ import util.DatabaseConnection;
 
 public class SerieDao implements Dao<Serie> {
 
-	Connection connection;
+	static Connection connection;
 
 	@Override
 	public void insertar(Serie t) {
@@ -30,9 +31,9 @@ public class SerieDao implements Dao<Serie> {
 		DatabaseConnection.closeConnection();
 
 	}
-	
+
 	public SerieDao() {
-		
+
 	}
 
 	@Override
@@ -53,10 +54,29 @@ public class SerieDao implements Dao<Serie> {
 		return null;
 	}
 
-	@Override
 	public Serie buscarPorId(int i) {
-		// TODO Auto-generated method stub
-		return null;
+		connection = connection = DatabaseConnection.openConnection();
+
+		String query = "select * from series where id = ?";
+		Serie serie = null;
+
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setInt(1, i);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				serie = new Serie(rs.getInt("id"), rs.getString("titulo"), rs.getInt("edad"),
+						rs.getString("plataforma"), null);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DatabaseConnection.closeConnection();
+
+		return serie;
 	}
 
 }
