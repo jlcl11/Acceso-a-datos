@@ -5,17 +5,21 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.management.openmbean.OpenMBeanConstructorInfo;
+
+import com.mysql.cj.x.protobuf.MysqlxCursor.Open;
+
 import pojo.Temporada;
 import util.DatabaseConnection;
 
-public class TemporadaDao implements Dao<Temporada> {
+public class TemporadaDao extends ObjetoDao implements Interfazdao<Temporada> {
 
 	private Connection connection;
 
 	public TemporadaDao() {
-		
+
 	}
-	
+
 	@Override
 	public void insertar(Temporada t) {
 		connection = DatabaseConnection.openConnection();
@@ -45,12 +49,24 @@ public class TemporadaDao implements Dao<Temporada> {
 
 	@Override
 	public void borrar(Temporada t) {
-		// TODO Auto-generated method stub
+
+		connection = openConnection();
+		String query = "DELETE FROM temporadas where id=?;";
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setInt(1, t.getId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		closeConnection();
 
 	}
 
 	@Override
-	public ArrayList<Temporada> buscarTodos(Temporada t) {
+	public ArrayList<Temporada> buscarTodos() {
 		// TODO Auto-generated method stub
 		return null;
 	}
