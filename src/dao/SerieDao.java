@@ -51,7 +51,7 @@ public class SerieDao extends ObjetoDao implements Interfazdao<Serie> {
 			while (rs.next()) {
 				Temporada temporada = new Temporada(rs.getInt("id"), rs.getInt("num_temporada"), rs.getString("titulo"),
 						serie);
-				
+
 				temporadas.add(temporada);
 			}
 			serie.setTemporadas(obtenerTemporadas(serie));
@@ -60,7 +60,7 @@ public class SerieDao extends ObjetoDao implements Interfazdao<Serie> {
 			e.printStackTrace();
 		}
 
-		//closeConnection();
+		// closeConnection();
 
 		return temporadas;
 
@@ -95,6 +95,10 @@ public class SerieDao extends ObjetoDao implements Interfazdao<Serie> {
 
 	@Override
 	public void borrar(Serie t) {
+
+		TemporadaDao temp = new TemporadaDao();
+		temp.borrarPorSerie(t.getId());
+
 		connection = openConnection();
 		String query = "DELETE FROM series where id=?;";
 		try {
@@ -148,7 +152,8 @@ public class SerieDao extends ObjetoDao implements Interfazdao<Serie> {
 			while (rs.next()) {
 				serie = new Serie(rs.getInt("id"), rs.getString("titulo"), rs.getInt("edad"),
 						rs.getString("plataforma"), null);
-			}serie.setTemporadas(obtenerTemporadas(serie));
+			}
+			serie.setTemporadas(obtenerTemporadas(serie));
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

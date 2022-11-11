@@ -31,9 +31,9 @@ public class Main {
 		 * serieDao.modificar(serie);
 		 */
 
-		SerieDao serieDao = new SerieDao();
+		
 
-		Serie losSimpson = serieDao.buscarPorId(1);
+		//Serie losSimpson = serieDao.buscarPorId(1);
 		/*
 		 * losSimpson.setPlataforma("Netflix"); serieDao.modificar(losSimpson);
 		 * 
@@ -47,11 +47,11 @@ public class Main {
 		 * ArrayList<Temporada> temporadas=serieDao.obtenerTemporadas(losSimpson);
 		 * for(Temporada temporada:temporadas) { System.out.println(temporada); }
 		 */
-		Serie seriote = serieDao.buscarPorId(1);
-		Temporada seasonada = new Temporada(1, "Temporada 1", seriote);
+		
+	//	Temporada seasonada = new Temporada(1, "Temporada 1", seriote);
 		TemporadaDao t = new TemporadaDao();
-		t.borrar(seasonada);
-		serieDao.borrar(seriote);
+
+		t.borrarPorSerie(3);
 	}
 
 }
