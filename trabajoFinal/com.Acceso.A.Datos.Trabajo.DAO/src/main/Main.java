@@ -21,7 +21,7 @@ public class Main {
 		
 		//jd.insertar(lbj);
 		
-		System.out.println(jd.buscarPorId(1));
+		System.out.println(jd.buscarTodos());
 	}
 
 }

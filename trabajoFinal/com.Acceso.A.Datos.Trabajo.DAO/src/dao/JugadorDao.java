@@ -15,8 +15,32 @@ public class JugadorDao extends ObjetoDao implements InterfazDao<Jugador> {
 
 	@Override
 	public ArrayList<Jugador> buscarTodos() {
-		// TODO Auto-generated method stub
-		return null;
+
+		ArrayList todosLosJugadores= new ArrayList<>();
+		
+		connection = openConnection();
+
+		String query = "SELECT * FROM jugadores";
+
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Jugador aux = new Jugador(rs.getString("nombre"), rs.getString("apellido"), rs.getString("apodo"),
+						(byte) rs.getByte("dorsal"), rs.getFloat("salario"), rs.getString("posicion"),
+						rs.getInt("eq_id"));
+				todosLosJugadores.add(aux);
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		closeConnection();
+		
+		return todosLosJugadores;
 	}
 
 	@Override
