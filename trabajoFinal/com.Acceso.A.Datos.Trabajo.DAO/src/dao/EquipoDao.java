@@ -27,18 +27,19 @@ public class EquipoDao extends ObjetoDao implements InterfazDao<Equipo> {
 
 		connection = openConnection();
 
-		String query = "INSERT INTO equipos(nombre,ciudadlocal,generalManager,propietario,conferencia) VALUES('"
-				+ t.getNombre() + "','" + t.getCiudadLocal() + "','" + t.getGeneralManager() + "','"
-				+ t.getPropietario() + "'," + t.isConferencia() + ");";
+//		String query = "INSERT INTO equipos(nombre,ciudadlocal,generalManager,propietario,conferencia) VALUES('"
+//				+ t.getNombre() + "','" + t.getCiudadLocal() + "','" + t.getGeneralManager() + "','"
+//				+ t.getPropietario() + "'," + t.isConferencia() + ");";
+		String query = "INSERT INTO equipos(nombre,ciudadlocal,generalManager,propietario,conferencia) values(?,?,?,?,?)";
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(query);
 
-//			ps.setString(1, t.getNombre());
-//			ps.setString(2, t.getCiudadLocal());
-//			ps.setString(3, t.getGeneralManager());
-//			ps.setString(4, t.getPropietario());
-//			ps.setBoolean(5, t.isConferencia());
+			ps.setString(1, t.getNombre());
+			ps.setString(2, t.getCiudadLocal());
+			ps.setString(3, t.getGeneralManager());
+			ps.setString(4, t.getPropietario());
+			ps.setBoolean(5, t.isConferencia());
 
 			ps.executeUpdate();
 
