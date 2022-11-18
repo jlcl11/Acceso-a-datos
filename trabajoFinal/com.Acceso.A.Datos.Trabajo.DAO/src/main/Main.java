@@ -19,7 +19,9 @@ public class Main {
 		Jugador lbj=new Jugador("jojo", null, null, (byte) 0, 0, null, 3);
 		JugadorDao jd=new JugadorDao();
 		
-		jd.insertar(lbj);
+		//jd.insertar(lbj);
+		
+		System.out.println(jd.buscarPorId(1));
 	}
 
 }

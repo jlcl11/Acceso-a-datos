@@ -94,7 +94,7 @@ public class Jugador {
 	@Override
 	public String toString() {
 
-		return "El jugador " + nombre + "'" + apodo + "'" + apellido + " juega con el dorsal " + dorsal
+		return "El jugador " + nombre + " '" + apodo + "' " + apellido + " juega con el dorsal " + dorsal
 				+ " en la posición de " + posicion + ", y cobra " + salario + " millones de dólares";
 
 	}

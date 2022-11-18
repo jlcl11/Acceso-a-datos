@@ -2,9 +2,11 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import pojo.Equipo;
 import pojo.Jugador;
 
 public class JugadorDao extends ObjetoDao implements InterfazDao<Jugador> {
@@ -19,8 +21,31 @@ public class JugadorDao extends ObjetoDao implements InterfazDao<Jugador> {
 
 	@Override
 	public Jugador buscarPorId(int i) {
-		// TODO Auto-generated method stub
-		return null;
+		Jugador aux = null;
+
+		connection = openConnection();
+
+		String query = "SELECT * FROM jugadores WHERE jugador_id=?";
+
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setInt(1, i);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				aux = new Jugador(rs.getString("nombre"), rs.getString("apellido"), rs.getString("apodo"),
+						(byte) rs.getByte("dorsal"), rs.getFloat("salario"), rs.getString("posicion"),
+						rs.getInt("eq_id"));
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		closeConnection();
+
+		return aux;
 	}
 
 	@Override
