@@ -78,11 +78,11 @@ public class Equipo {
 		if (conferencia = false) {
 			return "El equipo" + ciudadLocal + " " + nombre + ",con id=" + eq_id
 					+ " de la conferencia este ,pertenece a " + propietario + " y tiene como General Manager a "
-					+ generalManager;
+					+ generalManager+"\n";
 		} else {
 			return "El equipo" + ciudadLocal + " " + nombre + ",con id=" + eq_id
 					+ " de la conferencia oeste ,pertenece a " + propietario + " y tiene como General Manager a "
-					+ generalManager;
+					+ generalManager+"\n";
 		}
 
 	}

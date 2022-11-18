@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -12,8 +13,31 @@ public class EquipoDao extends ObjetoDao implements InterfazDao<Equipo> {
 
 	@Override
 	public ArrayList<Equipo> buscarTodos() {
-		// TODO Auto-generated method stub
-		return null;
+
+		ArrayList<Equipo> todos = new ArrayList<>();
+		connection = openConnection();
+		
+
+		String query = "SELECT * FROM equipos";
+
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Equipo actual = new Equipo(rs.getString("nombre"), rs.getString("ciudadLocal"),
+						rs.getString("generalManager"), rs.getString("propietario"), rs.getBoolean("conferencia"));
+				todos.add(actual);
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		closeConnection();
+		
+		return todos;
 	}
 
 	@Override
@@ -26,10 +50,6 @@ public class EquipoDao extends ObjetoDao implements InterfazDao<Equipo> {
 	public void insertar(Equipo t) {
 
 		connection = openConnection();
-
-//		String query = "INSERT INTO equipos(nombre,ciudadlocal,generalManager,propietario,conferencia) VALUES('"
-//				+ t.getNombre() + "','" + t.getCiudadLocal() + "','" + t.getGeneralManager() + "','"
-//				+ t.getPropietario() + "'," + t.isConferencia() + ");";
 		String query = "INSERT INTO equipos(nombre,ciudadlocal,generalManager,propietario,conferencia) values(?,?,?,?,?)";
 
 		try {
@@ -63,7 +83,7 @@ public class EquipoDao extends ObjetoDao implements InterfazDao<Equipo> {
 
 		connection = openConnection();
 
-		String query = "UPDATE equipos SET nombre='?',ciudadLocal='?',generalManager='?',propietario='?',conferencia=? WHERE eq_id=?;";
+		String query = "UPDATE equipos SET nombre=?,ciudadLocal=?,generalManager=?,propietario=?,conferencia=? WHERE eq_id=?;";
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(query);
