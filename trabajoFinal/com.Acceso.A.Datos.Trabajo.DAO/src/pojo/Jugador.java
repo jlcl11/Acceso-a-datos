@@ -35,6 +35,16 @@ public class Jugador {
 		this.eq_id = eq_id;
 	}
 
+	
+	
+	public int getJugador_id() {
+		return jugador_id;
+	}
+
+	public void setJugador_id(int jugador_id) {
+		this.jugador_id = jugador_id;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}

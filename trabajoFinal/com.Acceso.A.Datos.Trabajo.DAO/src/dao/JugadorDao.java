@@ -16,8 +16,8 @@ public class JugadorDao extends ObjetoDao implements InterfazDao<Jugador> {
 	@Override
 	public ArrayList<Jugador> buscarTodos() {
 
-		ArrayList todosLosJugadores= new ArrayList<>();
-		
+		ArrayList todosLosJugadores = new ArrayList<>();
+
 		connection = openConnection();
 
 		String query = "SELECT * FROM jugadores";
@@ -39,7 +39,7 @@ public class JugadorDao extends ObjetoDao implements InterfazDao<Jugador> {
 		}
 
 		closeConnection();
-		
+
 		return todosLosJugadores;
 	}
 
@@ -101,7 +101,36 @@ public class JugadorDao extends ObjetoDao implements InterfazDao<Jugador> {
 
 	@Override
 	public void modificar(Jugador t) {
-		// TODO Auto-generated method stub
+
+		connection = openConnection();
+		String query = "UPDATE jugadores SET nombre=?,apellido=?,apodo=?,dorsal=?,salario=?,posicion=?,eq_id=? WHERE jugador_id=?";
+
+		String nombre = t.getNombre();
+		String apellido = t.getApellido();
+		String apodo = t.getApodo();
+		byte dorsal = t.getDorsal();
+		float salario = t.getSalario();
+		String posicion = t.getPosicion();
+		int eq_id = t.getEq_id();
+		int jugador_id = t.getJugador_id();
+
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setString(1, nombre);
+			ps.setString(2, apellido);
+			ps.setString(3, apodo);
+			ps.setByte(4, dorsal);
+			ps.setFloat(5, salario);
+			ps.setString(6, posicion);
+			ps.setInt(7, eq_id);
+			ps.setInt(8, jugador_id);
+			;
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		closeConnection();
 
 	}
 
