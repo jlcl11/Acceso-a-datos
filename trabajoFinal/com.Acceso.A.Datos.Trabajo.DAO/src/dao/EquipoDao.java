@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import pojo.Equipo;
+import pojo.Jugador;
 
 public class EquipoDao extends ObjetoDao implements InterfazDao<Equipo> {
 	private static Connection connection;
@@ -54,7 +55,7 @@ public class EquipoDao extends ObjetoDao implements InterfazDao<Equipo> {
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
-				 equipoBuscado = new Equipo(rs.getString("nombre"), rs.getString("ciudadLocal"),
+				equipoBuscado = new Equipo(rs.getString("nombre"), rs.getString("ciudadLocal"),
 						rs.getString("generalManager"), rs.getString("propietario"), rs.getBoolean("conferencia"));
 
 			}
@@ -128,7 +129,24 @@ public class EquipoDao extends ObjetoDao implements InterfazDao<Equipo> {
 	public void borrar(Equipo t) {
 
 		int eq_id = t.getEq_id();
-		// jugador
+
+		JugadorDao jd = new JugadorDao();
+		jd.borrarPorEquipo(eq_id);
+
+		connection = openConnection();
+
+		String query = "DELETE FROM equipos WHERE eq_id=?";
+
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setInt(1, eq_id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		closeConnection();
 
 	}
 

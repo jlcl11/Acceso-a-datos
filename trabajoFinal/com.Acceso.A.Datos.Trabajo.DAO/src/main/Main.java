@@ -21,7 +21,7 @@ public class Main {
 		
 		//jd.insertar(lbj);
 		
-		jd.modificar(lbj);
+		jd.borrar(lbj);;
 	}
 
 }

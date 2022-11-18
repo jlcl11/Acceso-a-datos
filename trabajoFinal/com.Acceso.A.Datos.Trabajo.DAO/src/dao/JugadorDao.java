@@ -136,8 +136,39 @@ public class JugadorDao extends ObjetoDao implements InterfazDao<Jugador> {
 
 	@Override
 	public void borrar(Jugador t) {
-		// TODO Auto-generated method stub
 
+		connection = openConnection();
+		int jugador_id = t.getJugador_id();
+		String query = "DELETE  FROM jugadores WHERE jugador_id=?";
+
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setInt(1, jugador_id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		closeConnection();
+
+	}
+	
+	public void borrarPorEquipo(int eq_id) {
+		connection = openConnection();
+		
+		String query = "DELETE  FROM jugadores WHERE eq_id=?";
+
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setInt(1, eq_id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		closeConnection();
 	}
 
 }
