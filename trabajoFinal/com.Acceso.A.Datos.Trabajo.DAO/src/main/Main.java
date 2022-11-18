@@ -10,7 +10,7 @@ public class Main {
 		EquipoDao ed=new EquipoDao();
 		Equipo lakers= new Equipo("Clippers", "Un random", "Rob Pelinka", "Steve Balmer", false);
 		
-		System.out.println(ed.buscarTodos());
+		System.out.println(ed.buscarPorId(3));
 		//ed.insertar(lakers);
 		//ed.modificar(lakers);
 	}

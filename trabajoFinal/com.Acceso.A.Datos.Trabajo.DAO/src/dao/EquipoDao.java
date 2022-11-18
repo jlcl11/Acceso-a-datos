@@ -16,7 +16,6 @@ public class EquipoDao extends ObjetoDao implements InterfazDao<Equipo> {
 
 		ArrayList<Equipo> todos = new ArrayList<>();
 		connection = openConnection();
-		
 
 		String query = "SELECT * FROM equipos";
 
@@ -36,14 +35,37 @@ public class EquipoDao extends ObjetoDao implements InterfazDao<Equipo> {
 		}
 
 		closeConnection();
-		
+
 		return todos;
 	}
 
 	@Override
-	public Equipo buscarPorId(int i) {
+	public Equipo buscarPorId(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		connection = openConnection();
+
+		Equipo equipoBuscado = null;
+
+		String query = "select * from equipos where eq_id = ?";
+
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				 equipoBuscado = new Equipo(rs.getString("nombre"), rs.getString("ciudadLocal"),
+						rs.getString("generalManager"), rs.getString("propietario"), rs.getBoolean("conferencia"));
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		closeConnection();
+
+		return equipoBuscado;
 	}
 
 	@Override
