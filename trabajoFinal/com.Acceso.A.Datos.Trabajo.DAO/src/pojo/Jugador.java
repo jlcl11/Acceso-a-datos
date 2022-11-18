@@ -8,11 +8,10 @@ public class Jugador {
 	private byte dorsal;
 	private float salario;
 	private String posicion;
-	private byte nominacionesAllStar;
-	private byte anillosCampeon;
+	private int eq_id;
 
 	public Jugador(int jugador_id, String nombre, String apellido, String apodo, byte dorsal, float salario,
-			String posicion, byte nominacionesAllStar, byte anillosCampeon) {
+			String posicion, int eq_id) {
 		super();
 		this.jugador_id = jugador_id;
 		this.nombre = nombre;
@@ -21,12 +20,11 @@ public class Jugador {
 		this.dorsal = dorsal;
 		this.salario = salario;
 		this.posicion = posicion;
-		this.nominacionesAllStar = nominacionesAllStar;
-		this.anillosCampeon = anillosCampeon;
+		this.eq_id = eq_id;
 	}
 
 	public Jugador(String nombre, String apellido, String apodo, byte dorsal, float salario, String posicion,
-			byte nominacionesAllStar, byte anillosCampeon) {
+			int eq_id) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -34,12 +32,7 @@ public class Jugador {
 		this.dorsal = dorsal;
 		this.salario = salario;
 		this.posicion = posicion;
-		this.nominacionesAllStar = nominacionesAllStar;
-		this.anillosCampeon = anillosCampeon;
-	}
-
-	public int getJugador_id() {
-		return jugador_id;
+		this.eq_id = eq_id;
 	}
 
 	public String getNombre() {
@@ -90,36 +83,19 @@ public class Jugador {
 		this.posicion = posicion;
 	}
 
-	public byte getNominacionesAllStar() {
-		return nominacionesAllStar;
+	public int getEq_id() {
+		return eq_id;
 	}
 
-	public void setNominacionesAllStar(byte nominacionesAllStar) {
-		this.nominacionesAllStar = nominacionesAllStar;
-	}
-
-	public byte getAnillosCampeon() {
-		return anillosCampeon;
-	}
-
-	public void setAnillosCampeon(byte anillosCampeon) {
-		this.anillosCampeon = anillosCampeon;
+	public void setEq_id(int eq_id) {
+		this.eq_id = eq_id;
 	}
 
 	@Override
 	public String toString() {
 
-		if (anillosCampeon > 0) {
-			return "El jugador " + nombre + "'" + apodo + "'" + apellido + " juega con el dorsal " + dorsal
-					+ " en la posición de " + posicion + ", cobra " + salario + " millones de dólares,ha conseguido "
-					+ nominacionesAllStar + " nominaciones al All Star y ha conseguido " + anillosCampeon
-					+ " anillos de campeón";
-		} else {
-			return "El jugador " + nombre + "'" + apodo + "'" + apellido + " juega con el dorsal " + dorsal
-					+ " en la posición de " + posicion + ", cobra " + salario + " millones de dólares,ha conseguido "
-					+ nominacionesAllStar
-					+ " nominaciones al All Star y ha conseguido,pero no ha conseguido el anillo de campeón";
-		}
+		return "El jugador " + nombre + "'" + apodo + "'" + apellido + " juega con el dorsal " + dorsal
+				+ " en la posición de " + posicion + ", y cobra " + salario + " millones de dólares";
 
 	}
 
