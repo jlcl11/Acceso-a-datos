@@ -16,12 +16,12 @@ public class Main {
 		//ed.insertar(lakers);
 		//ed.modificar(lakers);
 		
-		Jugador lbj=new Jugador(2,"jojo", "R", null, (byte) 0, 0, null, 3);
+		Jugador prueba = new Jugador("Kevin", "Durant", "Slim Reaper", (byte) 7, 42, "ALERO", 2);
 		JugadorDao jd=new JugadorDao();
 		
 		//jd.insertar(lbj);
 		
-		jd.borrar(lbj);;
+		jd.insertar(prueba);
 	}
 
 }
