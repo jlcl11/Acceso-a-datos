@@ -1,4 +1,4 @@
-package pojo;
+	package pojo;
 
 public class Jugador {
 	private int jugador_id;
