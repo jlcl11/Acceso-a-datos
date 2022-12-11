@@ -11,6 +11,7 @@ import pojo.Jugador;
 public class Main {
 
 	public static void main(String[] args) {
+
 		Scanner sc = new Scanner(System.in);
 
 		EquipoDao ed = new EquipoDao();
@@ -109,6 +110,7 @@ public class Main {
 		int id_Plantilla_A_Borrar = Integer.parseInt(sc.nextLine());
 		jd.borrarPorEquipo(id_Plantilla_A_Borrar);
 
+		
 	}
 
 }

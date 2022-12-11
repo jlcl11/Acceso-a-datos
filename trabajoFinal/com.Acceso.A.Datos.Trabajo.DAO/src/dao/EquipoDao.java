@@ -12,6 +12,37 @@ import pojo.Jugador;
 public class EquipoDao extends ObjetoDao implements InterfazDao<Equipo> {
 	private static Connection connection;
 
+	public ArrayList<Jugador> buscarPlantilla(Equipo eq) {
+		ArrayList<Jugador> todosLosJugadores = new ArrayList<>();
+
+		connection = openConnection();
+
+		int eq_id=eq.getEq_id();
+		System.out.println(eq_id);
+		String query = "SELECT * FROM jugadores where eq_id=" + eq_id + ";";
+
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Jugador aux = new Jugador(rs.getString("nombre"), rs.getString("apellido"), rs.getString("apodo"),
+						(byte) rs.getByte("dorsal"), rs.getFloat("salario"), rs.getString("posicion"),
+						rs.getInt("eq_id"));
+				todosLosJugadores.add(aux);
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		closeConnection();
+
+		return todosLosJugadores;
+
+	}
+
 	@Override
 	public ArrayList<Equipo> buscarTodos() {
 
