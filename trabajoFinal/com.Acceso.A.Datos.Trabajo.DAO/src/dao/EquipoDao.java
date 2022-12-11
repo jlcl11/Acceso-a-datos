@@ -25,7 +25,7 @@ public class EquipoDao extends ObjetoDao implements InterfazDao<Equipo> {
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
-				Equipo actual = new Equipo(rs.getString("nombre"), rs.getString("ciudadLocal"),
+				Equipo actual = new Equipo(rs.getInt("eq_id"), rs.getString("nombre"), rs.getString("ciudadLocal"),
 						rs.getString("generalManager"), rs.getString("propietario"), rs.getBoolean("conferencia"));
 				todos.add(actual);
 
@@ -38,6 +38,38 @@ public class EquipoDao extends ObjetoDao implements InterfazDao<Equipo> {
 		closeConnection();
 
 		return todos;
+	}
+
+	public ArrayList<Jugador> seleccionarPlantilla(Equipo t) {
+
+		ArrayList plantilla = new ArrayList<>();
+
+		int eq_id = t.getEq_id();
+
+		connection = openConnection();
+
+		String query = "SELECT * FROM jugadores where eq_id=?;";
+
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setInt(1, eq_id);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Jugador aux = new Jugador(rs.getString("nombre"), rs.getString("apellido"), rs.getString("apodo"),
+						(byte) rs.getByte("dorsal"), rs.getFloat("salario"), rs.getString("posicion"),
+						rs.getInt("eq_id"));
+				plantilla.add(aux);
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		closeConnection();
+
+		return plantilla;
 	}
 
 	@Override
@@ -55,7 +87,7 @@ public class EquipoDao extends ObjetoDao implements InterfazDao<Equipo> {
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
-				equipoBuscado = new Equipo(rs.getString("nombre"), rs.getString("ciudadLocal"),
+				equipoBuscado = new Equipo(rs.getInt("eq_id"), rs.getString("nombre"), rs.getString("ciudadLocal"),
 						rs.getString("generalManager"), rs.getString("propietario"), rs.getBoolean("conferencia"));
 
 			}
@@ -148,6 +180,34 @@ public class EquipoDao extends ObjetoDao implements InterfazDao<Equipo> {
 
 		closeConnection();
 
+	}
+
+	public ArrayList<Equipo> buscarPorConferencia(boolean conf) {
+
+		ArrayList<Equipo> todos = new ArrayList<>();
+		connection = openConnection();
+
+		String query = "SELECT * FROM equipos where conferencia=?";
+
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setBoolean(1, conf);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Equipo actual = new Equipo(rs.getInt("eq_id"), rs.getString("nombre"), rs.getString("ciudadLocal"),
+						rs.getString("generalManager"), rs.getString("propietario"), rs.getBoolean("conferencia"));
+				todos.add(actual);
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		closeConnection();
+
+		return todos;
 	}
 
 }

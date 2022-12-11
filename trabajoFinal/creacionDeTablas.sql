@@ -9,7 +9,7 @@ propietario VARCHAR(200),
 conferencia boolean
 );
 
-INSERT INTO equipos(nombre,ciudadlocal,generalManager,propietario,conferencia) VALUES('Lakers','Los Angeles','Rob Pelinka','Jeanie Buss',false);
+INSERT INTO equipos(nombre,ciudadlocal,generalManager,propietario,conferencia) VALUES('Lakers','Los Angeles','Rob Pelinka','Jeanie Buss',false);
 
 CREATE TABLE jugadores(
 jugador_id int PRIMARY KEY auto_increment,
