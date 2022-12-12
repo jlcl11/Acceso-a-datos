@@ -11,6 +11,7 @@ import pojo.Jugador;
 public class Main {
 
 	public static void main(String[] args) {
+		//TODO Updates de equipos,reiniciar ids,borrar jugador,update jugador
 
 		Scanner sc = new Scanner(System.in);
 
@@ -79,13 +80,13 @@ public class Main {
 		}
 
 		System.out.println("------CREAR JUGADORES------");
-		Jugador leBron = new Jugador("LeBron", "James", "The King", (byte) 6, 44.47f, "ALERO", 25);
+		Jugador leBron = new Jugador("LeBron", "James", "The King", (byte) 6, 44.47f, "ALERO", 136);
 		jd.insertar(leBron);
-		Jugador aD = new Jugador("Anthony", "Davis", "The Brow", (byte) 3, 37.98f, "ALAPIVOT", 25);
+		Jugador aD = new Jugador("Anthony", "Davis", "The Brow", (byte) 3, 37.98f, "ALAPIVOT", 136);
 		jd.insertar(aD);
-		Jugador joelEmbiid = new Jugador("Joel", "Embiid", "Troell", (byte) 21, 33.61f, "PIVOT", 26);
+		Jugador joelEmbiid = new Jugador("Joel", "Embiid", "Troell", (byte) 21, 33.61f, "PIVOT", 137);
 		jd.insertar(joelEmbiid);
-		Jugador jamesHarden = new Jugador("James", "Harden", "The Beard", (byte) 1, 33f, "ESCOLTA", 26);
+		Jugador jamesHarden = new Jugador("James", "Harden", "The Beard", (byte) 1, 33f, "ESCOLTA", 137);
 		jd.insertar(jamesHarden);
 
 		for (int o = 0; o < jd.buscarTodos().size(); o++) {
