@@ -11,7 +11,7 @@ import pojo.Jugador;
 public class Main {
 
 	public static void main(String[] args) {
-		//TODO Updates de equipos,reiniciar ids,borrar jugador,update jugador
+		// TODO Updates de equipos,reiniciar ids
 
 		Scanner sc = new Scanner(System.in);
 
@@ -61,6 +61,8 @@ public class Main {
 		} else {
 			Equipo modficado = new Equipo(id_Equipo_Modificar, nombre_Ciudad, nombre_GM, nombre_conf,
 					nombre_Propietario, true);
+			ed.modificar(modficado);
+			System.out.println("Equipo modificado correctamente,ahora es el " + modficado);
 		}
 
 		System.out.println("------BORRAR UN EQUIPO POR ID------");
@@ -102,8 +104,33 @@ public class Main {
 		System.out.println("------BORRAR UN JUGADOR POR ID------");
 		System.out.println("Dime el id del jugador que quieras borrar");
 		int id_Jugador_Borrar = Integer.parseInt(sc.nextLine());
-		jd.borrar(jd.buscarPorId(id_Jugador_Borrar));
+		System.out.println(jd.buscarPorId(id_Jugador_Borrar));
+		jd.borrar(id_Jugador_Borrar);
 		System.out.println("Jugador borrado");
+
+		System.out.println("------MODIFICAR UN JUGADOR------");
+		System.out.println("Dime el id del jugador que quieres modificar");
+		int id_Jugador_Modificado = Integer.parseInt(sc.nextLine());
+		System.out.println("Dime el nuevo nombre del jugador a modificar");
+		String nombre_Jugador_A_Modificar = sc.nextLine();
+		System.out.println("Dime su nuevo apellido");
+		String apellido_Jugador_A_Modificar = sc.nextLine();
+		System.out.println("Dime un nuevo apodo");
+		String nuevo_apodo = sc.nextLine();
+		System.out.println("Dime su nuevo dorsal(Recuerda entre 0 y 99");
+		byte nuevo_Dorsal = Byte.parseByte(sc.nextLine());
+		System.out.println("Dime su nuevo salario");
+		float nuevo_Salario = Float.parseFloat(sc.nextLine());
+		System.out.println("Dime su nueva posición(base,escolta,alero,alapivot,pivot)");
+		String nueva_posicion = sc.nextLine().toUpperCase();
+		System.out.println("Dime el nuevo equipo para el que quieres que juegue " + nombre_Jugador_A_Modificar);
+		int nuevo_Equipo_Id = Integer.parseInt(sc.nextLine());
+
+		Jugador modificado = new Jugador(id_Jugador_Modificado, nombre_Jugador_A_Modificar,
+				apellido_Jugador_A_Modificar, nuevo_apodo, (byte) nuevo_Dorsal, nuevo_Salario, nueva_posicion,
+				nuevo_Equipo_Id);
+
+		jd.modificar(modificado);
 
 		System.out.println("------BORRAR POR EQUIPO------");
 
@@ -111,7 +138,6 @@ public class Main {
 		int id_Plantilla_A_Borrar = Integer.parseInt(sc.nextLine());
 		jd.borrarPorEquipo(id_Plantilla_A_Borrar);
 
-		
 	}
 
 }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import pojo.Equipo;
 import pojo.Jugador;
 
-public class EquipoDao extends ObjetoDao implements InterfazDao<Equipo> {
+public class EquipoDao extends ObjetoDao {
 	private static Connection connection;
 
 	public ArrayList<Jugador> buscarPlantilla(Equipo eq) {
@@ -17,7 +17,7 @@ public class EquipoDao extends ObjetoDao implements InterfazDao<Equipo> {
 
 		connection = openConnection();
 
-		int eq_id=eq.getEq_id();
+		int eq_id = eq.getEq_id();
 		System.out.println(eq_id);
 		String query = "SELECT * FROM jugadores where eq_id=" + eq_id + ";";
 
@@ -43,7 +43,6 @@ public class EquipoDao extends ObjetoDao implements InterfazDao<Equipo> {
 
 	}
 
-	@Override
 	public ArrayList<Equipo> buscarTodos() {
 
 		ArrayList<Equipo> todos = new ArrayList<>();
@@ -103,7 +102,6 @@ public class EquipoDao extends ObjetoDao implements InterfazDao<Equipo> {
 		return plantilla;
 	}
 
-	@Override
 	public Equipo buscarPorId(int id) {
 		// TODO Auto-generated method stub
 		connection = openConnection();
@@ -132,7 +130,6 @@ public class EquipoDao extends ObjetoDao implements InterfazDao<Equipo> {
 		return equipoBuscado;
 	}
 
-	@Override
 	public void insertar(Equipo t) {
 
 		connection = openConnection();
@@ -158,7 +155,6 @@ public class EquipoDao extends ObjetoDao implements InterfazDao<Equipo> {
 
 	}
 
-	@Override
 	public void modificar(Equipo t) {
 		int eq_id = t.getEq_id();
 		String nombre = t.getNombre();
@@ -188,7 +184,6 @@ public class EquipoDao extends ObjetoDao implements InterfazDao<Equipo> {
 
 	}
 
-	@Override
 	public void borrar(Equipo t) {
 
 		int eq_id = t.getEq_id();

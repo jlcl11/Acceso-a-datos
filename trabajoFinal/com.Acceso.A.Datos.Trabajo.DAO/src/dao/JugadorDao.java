@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import pojo.Equipo;
 import pojo.Jugador;
 
-public class JugadorDao extends ObjetoDao implements InterfazDao<Jugador> {
+public class JugadorDao extends ObjetoDao {
 
 	private static Connection connection;
 
-	@Override
+
 	public ArrayList<Jugador> buscarTodos() {
 
 		ArrayList todosLosJugadores = new ArrayList<>();
@@ -43,7 +43,7 @@ public class JugadorDao extends ObjetoDao implements InterfazDao<Jugador> {
 		return todosLosJugadores;
 	}
 
-	@Override
+
 	public Jugador buscarPorId(int i) {
 		Jugador aux = null;
 
@@ -72,7 +72,7 @@ public class JugadorDao extends ObjetoDao implements InterfazDao<Jugador> {
 		return aux;
 	}
 
-	@Override
+
 	public void insertar(Jugador t) {
 		connection = openConnection();
 
@@ -99,7 +99,7 @@ public class JugadorDao extends ObjetoDao implements InterfazDao<Jugador> {
 
 	}
 
-	@Override
+
 	public void modificar(Jugador t) {
 
 		connection = openConnection();
@@ -124,8 +124,8 @@ public class JugadorDao extends ObjetoDao implements InterfazDao<Jugador> {
 			ps.setString(6, posicion);
 			ps.setInt(7, eq_id);
 			ps.setInt(8, jugador_id);
-			;
 			ps.executeUpdate();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -134,16 +134,16 @@ public class JugadorDao extends ObjetoDao implements InterfazDao<Jugador> {
 
 	}
 
-	@Override
-	public void borrar(Jugador t) {
+	
+	public void borrar(int  id) {
 
 		connection = openConnection();
-		int jugador_id = t.getJugador_id();
+		//int jugador_id = t.getJugador_id();
 		String query = "DELETE  FROM jugadores WHERE jugador_id=?";
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(query);
-			ps.setInt(1, jugador_id);
+			ps.setInt(1, id);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
