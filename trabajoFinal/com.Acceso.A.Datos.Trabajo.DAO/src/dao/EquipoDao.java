@@ -9,40 +9,25 @@ import java.util.ArrayList;
 import pojo.Equipo;
 import pojo.Jugador;
 
+/**
+ * DAO de equipo,contiene todos los métodos que usarán los métodos para utilizar
+ * los registros de la tabla equipos en la bbdd.Hereda de la clase ObjetoDao
+ * para poder contar con sus métodos openConnection() y closeConnection()
+ * 
+ * @author jcorr
+ *
+ */
 public class EquipoDao extends ObjetoDao {
+	/**
+	 * Variable que usaremos para abrir conexiones
+	 */
 	private static Connection connection;
 
-	public ArrayList<Jugador> buscarPlantilla(Equipo eq) {
-		ArrayList<Jugador> todosLosJugadores = new ArrayList<>();
-
-		connection = openConnection();
-
-		int eq_id = eq.getEq_id();
-		System.out.println(eq_id);
-		String query = "SELECT * FROM jugadores where eq_id=" + eq_id + ";";
-
-		try {
-			PreparedStatement ps = connection.prepareStatement(query);
-			ResultSet rs = ps.executeQuery();
-
-			while (rs.next()) {
-				Jugador aux = new Jugador(rs.getString("nombre"), rs.getString("apellido"), rs.getString("apodo"),
-						(byte) rs.getByte("dorsal"), rs.getFloat("salario"), rs.getString("posicion"),
-						rs.getInt("eq_id"));
-				todosLosJugadores.add(aux);
-
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		closeConnection();
-
-		return todosLosJugadores;
-
-	}
-
+	/**
+	 * Método que devuelve todos los equipos indiscriminadamente de la bbdd
+	 * 
+	 * @return todos todos los equipos de la bbdd
+	 */
 	public ArrayList<Equipo> buscarTodos() {
 
 		ArrayList<Equipo> todos = new ArrayList<>();
@@ -70,6 +55,14 @@ public class EquipoDao extends ObjetoDao {
 		return todos;
 	}
 
+	/**
+	 * Método que devuelve los jugadores que pertenecen a un equipo
+	 * 
+	 * @param id identificador del equipo cuya plantilla queremos imprimir por
+	 *           pantalla
+	 * @return ArrayList de los jugadores que pertenecen al equipo identificado por
+	 *         el argumento que hemos pasado por parámetros
+	 */
 	public ArrayList<Jugador> seleccionarPlantilla(int id) {
 
 		ArrayList plantilla = new ArrayList<>();
@@ -102,6 +95,13 @@ public class EquipoDao extends ObjetoDao {
 		return plantilla;
 	}
 
+	/**
+	 * Método que devuelve un único equipo cuyo id usamos como elemento
+	 * diferenciador a la hora de seleccionar el equipo indicado
+	 * 
+	 * @param id id del equipo a buscar
+	 * @return equipo buscado
+	 */
 	public Equipo buscarPorId(int id) {
 		// TODO Auto-generated method stub
 		connection = openConnection();
@@ -130,6 +130,11 @@ public class EquipoDao extends ObjetoDao {
 		return equipoBuscado;
 	}
 
+	/**
+	 * Función que inserta el equipo pasado por parámetros en la bbdd
+	 * 
+	 * @param t equipo a insertar en la bbdd
+	 */
 	public void insertar(Equipo t) {
 
 		connection = openConnection();
@@ -155,6 +160,13 @@ public class EquipoDao extends ObjetoDao {
 
 	}
 
+	/**
+	 * Método que modifica un registro ya existente de un jugador en la bbdd
+	 * 
+	 * @param t jugador que va a quedar reflejado en la bbdd,este deberá tener el
+	 *          mismo id que el jugador que queremos modificar y los nuevos valores
+	 *          de los campos que queramos modificar
+	 */
 	public void modificar(Equipo t) {
 		int eq_id = t.getEq_id();
 		String nombre = t.getNombre();
@@ -184,6 +196,11 @@ public class EquipoDao extends ObjetoDao {
 
 	}
 
+	/**
+	 * Método que borra un registro ya existente de un equipo en la bbdd
+	 * 
+	 * @param id identificador del equipo a borrar
+	 */
 	public void borrar(int id) {
 
 		JugadorDao jd = new JugadorDao();
@@ -206,6 +223,15 @@ public class EquipoDao extends ObjetoDao {
 
 	}
 
+	/**
+	 * Método que saca los equipos distinguidos por conferencia ,este método será
+	 * útil mayoritariamente para el trabajo de Desarrollo de interfaces
+	 * 
+	 * @param conf valor true o false que nos ayudará a distinguir entre conferencia
+	 *             este u oeste
+	 * @return devuelve un ArrayList<Equipo> con todos los equipos de la conferencia
+	 *         seleccionada
+	 */
 	public ArrayList<Equipo> buscarPorConferencia(boolean conf) {
 
 		ArrayList<Equipo> todos = new ArrayList<>();

@@ -9,11 +9,22 @@ import dao.ObjetoDao;
 import pojo.Equipo;
 import pojo.Jugador;
 
+/**
+ * Clase main del programa.Al ejecutarla,se ejecuta el programa
+ * 
+ * @author jcorr
+ *
+ */
 public class Main {
 
+	/**
+	 * Método Main,contiene todas las funcionalidades que se van a ejecutar en el
+	 * programa.Por petición de Alejandra,ejecuta automáticamente sin pedir ningún
+	 * dato por teclado
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		// TODO updatear un jugador
-
 		ObjetoDao od = new ObjetoDao();
 		EquipoDao ed = new EquipoDao();
 		JugadorDao jd = new JugadorDao();

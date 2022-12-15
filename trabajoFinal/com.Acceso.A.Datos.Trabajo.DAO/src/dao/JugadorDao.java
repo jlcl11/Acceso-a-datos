@@ -9,11 +9,27 @@ import java.util.ArrayList;
 import pojo.Equipo;
 import pojo.Jugador;
 
+/**
+ * DAO de jugador,contiene todos los métodos que usarán los métodos para
+ * utilizar los registros de la tabla jugadores en la bbdd.Hereda de la clase
+ * ObjetoDao para poder contar con sus métodos openConnection() y
+ * closeConnection()
+ * 
+ * @author jcorr
+ *
+ */
 public class JugadorDao extends ObjetoDao {
 
+	/**
+	 * Variable que usaremos para abrir conexiones
+	 */
 	private static Connection connection;
 
-
+	/**
+	 * Método que devuelve todos los jugadores indiscriminadamente de la bbdd
+	 * 
+	 * @return todosLosJugadores todos los jugadores de la bbdd
+	 */
 	public ArrayList<Jugador> buscarTodos() {
 
 		ArrayList todosLosJugadores = new ArrayList<>();
@@ -43,8 +59,14 @@ public class JugadorDao extends ObjetoDao {
 		return todosLosJugadores;
 	}
 
-
-	public Jugador buscarPorId(int i) {
+	/**
+	 * Método que devuelve un único jugador cuyo id usamos como elemento
+	 * diferenciador a la hora de seleccionar el jugador indicado
+	 * 
+	 * @param id id del jugador a buscar
+	 * @return jugador buscado
+	 */
+	public Jugador buscarPorId(int id) {
 		Jugador aux = null;
 
 		connection = openConnection();
@@ -53,7 +75,7 @@ public class JugadorDao extends ObjetoDao {
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(query);
-			ps.setInt(1, i);
+			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -72,7 +94,11 @@ public class JugadorDao extends ObjetoDao {
 		return aux;
 	}
 
-
+	/**
+	 * Función que inserta el jugador pasado por parámetros en la bbdd
+	 * 
+	 * @param t jugador a insertar en la bbdd
+	 */
 	public void insertar(Jugador t) {
 		connection = openConnection();
 
@@ -99,7 +125,13 @@ public class JugadorDao extends ObjetoDao {
 
 	}
 
-
+	/**
+	 * Método que modifica un registro ya existente de un jugador en la bbdd
+	 * 
+	 * @param t jugador que va a quedar reflejado en la bbdd,este deberá tener el
+	 *          mismo id que el jugador que queremos modificar y los nuevos valores
+	 *          de los campos que queramos modificar
+	 */
 	public void modificar(Jugador t) {
 
 		connection = openConnection();
@@ -123,9 +155,9 @@ public class JugadorDao extends ObjetoDao {
 			ps.setFloat(5, salario);
 			ps.setString(6, posicion);
 			ps.setInt(7, eq_id);
-			ps.setInt(8, 2);
+			ps.setInt(8, jugador_id);
 			ps.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -134,11 +166,15 @@ public class JugadorDao extends ObjetoDao {
 
 	}
 
-	
-	public void borrar(int  id) {
+	/**
+	 * Método que borra un registro ya existente de un jugador en la bbdd
+	 * 
+	 * @param id identificador del jugador a borrar
+	 */
+	public void borrar(int id) {
 
 		connection = openConnection();
-		//int jugador_id = t.getJugador_id();
+		// int jugador_id = t.getJugador_id();
 		String query = "DELETE  FROM jugadores WHERE jugador_id=?";
 
 		try {
@@ -153,10 +189,18 @@ public class JugadorDao extends ObjetoDao {
 		closeConnection();
 
 	}
-	
+
+	/**
+	 * Método que borra todos los jugadores de un equipo.Este método se puede usar
+	 * por si queremos borrar un equipo y por deferencia también sus jugadores para
+	 * cumplir las restricciones de la clave foránea,o bien si queremos "limpiar" la
+	 * plantilla de un equipo sin necesariamente tener que borrar el equipo en sí
+	 * 
+	 * @param eq_id id del equipo cuyos jugadores vamos a borrar.
+	 */
 	public void borrarPorEquipo(int eq_id) {
 		connection = openConnection();
-		
+
 		String query = "DELETE  FROM jugadores WHERE eq_id=?";
 
 		try {
