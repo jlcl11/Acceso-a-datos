@@ -70,11 +70,11 @@ public class EquipoDao extends ObjetoDao {
 		return todos;
 	}
 
-	public ArrayList<Jugador> seleccionarPlantilla(Equipo t) {
+	public ArrayList<Jugador> seleccionarPlantilla(int id) {
 
 		ArrayList plantilla = new ArrayList<>();
 
-		int eq_id = t.getEq_id();
+		int eq_id = 2;
 
 		connection = openConnection();
 
@@ -184,12 +184,10 @@ public class EquipoDao extends ObjetoDao {
 
 	}
 
-	public void borrar(Equipo t) {
-
-		int eq_id = t.getEq_id();
+	public void borrar(int id) {
 
 		JugadorDao jd = new JugadorDao();
-		jd.borrarPorEquipo(eq_id);
+		jd.borrarPorEquipo(id);
 
 		connection = openConnection();
 
@@ -197,7 +195,7 @@ public class EquipoDao extends ObjetoDao {
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(query);
-			ps.setInt(1, eq_id);
+			ps.setInt(1, id);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

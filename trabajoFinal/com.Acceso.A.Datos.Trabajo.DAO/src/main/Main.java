@@ -5,90 +5,97 @@ import java.util.Scanner;
 
 import dao.EquipoDao;
 import dao.JugadorDao;
+import dao.ObjetoDao;
 import pojo.Equipo;
 import pojo.Jugador;
 
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Updates de equipos,reiniciar ids
+		// TODO updatear un jugador
 
-		Scanner sc = new Scanner(System.in);
-
+		ObjetoDao od = new ObjetoDao();
 		EquipoDao ed = new EquipoDao();
 		JugadorDao jd = new JugadorDao();
 
-		for (byte i = 0; i < ed.buscarPorConferencia(false).size(); i++) {
-			System.out.println(ed.buscarPorConferencia(true).get(i));
-
-		}
+		od.crearTablas();
 
 		System.out.println("------CREAR E INSERTAR EQUIPOS------");
 		Equipo e1 = new Equipo("Lakers", "Los Ángeles", "Rob Pelinka", "Jeanie Buss", false);
 		ed.insertar(e1);
 		Equipo e2 = new Equipo("76es", "Phidaldelphia", "Elton Brand", "Josh Harris", true);
 		ed.insertar(e2);
+		Equipo e3 = new Equipo("Bulls", "Chicago", "Marc Eversley", "Jerry Reinsdorf", true);
+		ed.insertar(e3);
+
+		System.out.println("------MOSTRADO DE TODOS LOS EQUIPOS------" + "\n");
 
 		for (byte i = 0; i < ed.buscarTodos().size(); i++) {
 			System.out.println(ed.buscarTodos().get(i));
 		}
 
-		System.out.println("------SELECCIONAR UN EQUIPO POR ID------");
+		System.out.println("------MOSTRADO DE TODOS LOS EQUIPOS DE LA CONFERENCIA ESTE------" + "\n");
 
-		System.out.println("Dime el id del equipo que quieras buscar");
-		int id_Equipo = Integer.parseInt(sc.nextLine());
-		System.out.println(ed.buscarPorId(id_Equipo));
+		for (int i = 0; i < ed.buscarPorConferencia(true).size(); i++) {
+			System.out.println(ed.buscarPorConferencia(true).get(i));
+		}
+
+		System.out.println("------MOSTRADO DE TODOS LOS EQUIPOS DE LA CONFERENCIA OESTE------" + "\n");
+
+		for (int i = 0; i < ed.buscarPorConferencia(false).size(); i++) {
+			System.out.println(ed.buscarPorConferencia(false).get(i));
+		}
+
+		System.out.println("\"------SELECCIONAR UN EQUIPO POR ID------\"+\"\\n\"");
+		System.out.println("Vamos a usar el id 1");
+		System.out.println(ed.buscarPorId(1));
 
 		System.out.println("------MODIFICAR UN EQUIPO POR ID------");
-		System.out.println("Dime el id del equipo que quieras modificar");
-		int id_Equipo_Modificar = Integer.parseInt(sc.nextLine());
-		System.out.println("Dime el nuevo nombre");
-		String nombre_Equipo = sc.nextLine();
-		System.out.println("Dime la nueva ciudad");
-		String nombre_Ciudad = sc.nextLine();
-		System.out.println("Dime el nuevo General Manager");
-		String nombre_GM = sc.nextLine();
-		System.out.println("Dime el nuevo propietario");
-		String nombre_Propietario = sc.nextLine();
-		System.out.println("Dime la nueva conferencia,este u oeste");
-		String nombre_conf = sc.nextLine().toLowerCase();
+		System.out.println("Vamos a usar el id 1 y vamos a cambiar los siguientes datos");
+		System.out.println("Ciudad actual: Los Ángeles \t Ciudad nueva: Las Vegas");
+		System.out.println("Nombre actual:Lakers \t Nombre nuevo: Poggers");
+		System.out.println("GM actual: Rob Pelinka \t  GM nuevo: Manolo el del bombo");
+		System.out.println("Dueña actua: Jeani Buss \t Dueño nuevo: Bugs Bunny");
+		System.out.println("Conferencia actual: oeste \t Conferencia nueva: este");
 
-		if (nombre_conf.equals("este")) {
-			Equipo modificado = new Equipo(id_Equipo_Modificar, nombre_Ciudad, nombre_GM, nombre_conf,
-					nombre_Propietario, false);
-			ed.modificar(modificado);
-			System.out.println("Equipo modificado correctamente,ahora es el " + modificado);
-		} else {
-			Equipo modficado = new Equipo(id_Equipo_Modificar, nombre_Ciudad, nombre_GM, nombre_conf,
-					nombre_Propietario, true);
-			ed.modificar(modficado);
-			System.out.println("Equipo modificado correctamente,ahora es el " + modficado);
+		Equipo modificEquipo = new Equipo(1, "Poggers", "Las Vegas", "Manolo el del bombo", "Bugs Bunny", true);
+		ed.modificar(modificEquipo);
+
+		System.out.println("------MOSTRADO DE TODOS LOS EQUIPOS------" + "\n");
+
+		for (byte i = 0; i < ed.buscarTodos().size(); i++) {
+			System.out.println(ed.buscarTodos().get(i));
+		}
+
+		System.out.println("------MOSTRADO DE TODOS LOS EQUIPOS DE LA CONFERENCIA ESTE------" + "\n");
+
+		for (int i = 0; i < ed.buscarPorConferencia(true).size(); i++) {
+			System.out.println(ed.buscarPorConferencia(true).get(i));
+		}
+
+		System.out.println("------MOSTRADO DE TODOS LOS EQUIPOS DE LA CONFERENCIA OESTE------" + "\n");
+
+		for (int i = 0; i < ed.buscarPorConferencia(false).size(); i++) {
+			System.out.println(ed.buscarPorConferencia(false).get(i));
 		}
 
 		System.out.println("------BORRAR UN EQUIPO POR ID------");
-		System.out.println("Dime el id del equipo que quieras borrar");
-		int id_Equipo_Borrar = Integer.parseInt(sc.nextLine());
-		ed.borrar(ed.buscarPorId(id_Equipo_Borrar));
-		System.out.println("Equipo borrado");
+		System.out.println("Vamos a borrar el equipo con el id 3");
+		ed.borrar(3);
+		System.out.println("------MOSTRADO DE TODOS LOS EQUIPOS------" + "\n");
 
-		System.out.println("------BUSCAR LA PLANTILLA DE UN EQUIPO------");
-		System.out.println("Dime el id del equipo que quieras buscar");
-		int id_Equipo_Plantilla = Integer.parseInt(sc.nextLine());
-
-		for (int i = 0; i < ed.seleccionarPlantilla(ed.buscarPorId(id_Equipo_Plantilla)).size(); i++) {
-
-			System.out.println(ed.seleccionarPlantilla(ed.buscarPorId(id_Equipo_Plantilla)).get(i));
-
+		for (byte i = 0; i < ed.buscarTodos().size(); i++) {
+			System.out.println(ed.buscarTodos().get(i));
 		}
 
 		System.out.println("------CREAR JUGADORES------");
-		Jugador leBron = new Jugador("LeBron", "James", "The King", (byte) 6, 44.47f, "ALERO", 136);
+		Jugador leBron = new Jugador("LeBron", "James", "The King", (byte) 6, 44.47f, "ALERO", 1);
 		jd.insertar(leBron);
-		Jugador aD = new Jugador("Anthony", "Davis", "The Brow", (byte) 3, 37.98f, "ALAPIVOT", 136);
+		Jugador aD = new Jugador("Anthony", "Davis", "The Brow", (byte) 3, 37.98f, "ALAPIVOT", 1);
 		jd.insertar(aD);
-		Jugador joelEmbiid = new Jugador("Joel", "Embiid", "Troell", (byte) 21, 33.61f, "PIVOT", 137);
+		Jugador joelEmbiid = new Jugador("Joel", "Embiid", "Troell", (byte) 21, 33.61f, "PIVOT", 2);
 		jd.insertar(joelEmbiid);
-		Jugador jamesHarden = new Jugador("James", "Harden", "The Beard", (byte) 1, 33f, "ESCOLTA", 137);
+		Jugador jamesHarden = new Jugador("James", "Harden", "The Beard", (byte) 1, 33f, "ESCOLTA", 2);
 		jd.insertar(jamesHarden);
 
 		for (int o = 0; o < jd.buscarTodos().size(); o++) {
@@ -96,47 +103,49 @@ public class Main {
 		}
 
 		System.out.println("------SELECCIONAR UN JUGADOR POR ID------");
-
-		System.out.println("Dime el id del jugador que quieras buscar");
-		int id_Jugador = Integer.parseInt(sc.nextLine());
-		System.out.println(jd.buscarPorId(id_Jugador));
-
-		System.out.println("------BORRAR UN JUGADOR POR ID------");
-		System.out.println("Dime el id del jugador que quieras borrar");
-		int id_Jugador_Borrar = Integer.parseInt(sc.nextLine());
-		System.out.println(jd.buscarPorId(id_Jugador_Borrar));
-		jd.borrar(id_Jugador_Borrar);
-		System.out.println("Jugador borrado");
+		System.out.println("Vamos a seleccionar el jugador 1");
+		System.out.println(jd.buscarPorId(1));
 
 		System.out.println("------MODIFICAR UN JUGADOR------");
-		System.out.println("Dime el id del jugador que quieres modificar");
-		int id_Jugador_Modificado = Integer.parseInt(sc.nextLine());
-		System.out.println("Dime el nuevo nombre del jugador a modificar");
-		String nombre_Jugador_A_Modificar = sc.nextLine();
-		System.out.println("Dime su nuevo apellido");
-		String apellido_Jugador_A_Modificar = sc.nextLine();
-		System.out.println("Dime un nuevo apodo");
-		String nuevo_apodo = sc.nextLine();
-		System.out.println("Dime su nuevo dorsal(Recuerda entre 0 y 99");
-		byte nuevo_Dorsal = Byte.parseByte(sc.nextLine());
-		System.out.println("Dime su nuevo salario");
-		float nuevo_Salario = Float.parseFloat(sc.nextLine());
-		System.out.println("Dime su nueva posición(base,escolta,alero,alapivot,pivot)");
-		String nueva_posicion = sc.nextLine().toUpperCase();
-		System.out.println("Dime el nuevo equipo para el que quieres que juegue " + nombre_Jugador_A_Modificar);
-		int nuevo_Equipo_Id = Integer.parseInt(sc.nextLine());
+		System.out.println("Vamos a modificar el jugador con id 2");
+		System.out.println("Nombre actual: Anthony \t Nombre nuevo:Cristiano ");
+		System.out.println("Apellido actual:Davis \t Apellido:Ronaldo");
+		System.out.println("Apodo actual:The Brow\tApodo nuevo:El bicho suuu");
+		System.out.println("Dorsal actual:3\tDorsal nuevo:7");
+		System.out.println("Salario actual:40\nSalario nuevo:30");
+		System.out.println("Posición actual:ALERO\tPosición nuevo:BASE");
+		System.out.println("id del equipo actual:1\nNuevo id:2 ");
 
-		Jugador modificado = new Jugador(id_Jugador_Modificado, nombre_Jugador_A_Modificar,
-				apellido_Jugador_A_Modificar, nuevo_apodo, (byte) nuevo_Dorsal, nuevo_Salario, nueva_posicion,
-				nuevo_Equipo_Id);
+		Jugador modifcado = new Jugador(2, "Cristiano", "Ronaldo", "El bicho suuu", (byte) 7, 30, "BASE", 2);
+		jd.modificar(modifcado);
+		System.out.println("\n");
+		for (int o = 0; o < jd.buscarTodos().size(); o++) {
+			System.out.println(jd.buscarTodos().get(o));
+		}
+		System.out.println("------BORRAR UN JUGADOR POR ID------");
+		System.out.println("Vamos a borrar el jugador con el id 1");
+		jd.borrar(1);
+		for (int o = 0; o < jd.buscarTodos().size(); o++) {
+			System.out.println(jd.buscarTodos().get(o));
+		}
 
-		jd.modificar(modificado);
+		System.out.println("------MOSTRAR LA PLANTILLA DE UN EQUIPO------");
+		System.out.println("Vamos a imprimir la plantilla del equipo 2");
+		for (int i = 0; i < ed.seleccionarPlantilla(2).size(); i++) {
+			System.out.println(ed.seleccionarPlantilla(2).get(i));
+		}
 
-		System.out.println("------BORRAR POR EQUIPO------");
+		System.out.println("------BORRAR LA PLANTILLA DE UN EQUIPO------");
+		System.out.println("Vamos a borrar la plantilla del equipo 2");
+		jd.borrarPorEquipo(2);
 
-		System.out.println("Dime el id del equipo cuya plantilla quieras borrar");
-		int id_Plantilla_A_Borrar = Integer.parseInt(sc.nextLine());
-		jd.borrarPorEquipo(id_Plantilla_A_Borrar);
+		System.out.println("------FINALMENTE MOSTRAMOS LOS JUGADORES QUE NOS QUEDAN------");
+		for (int o = 0; o < jd.buscarTodos().size(); o++) {
+			System.out.println(jd.buscarTodos().get(o));
+		}
+		System.out.println("Como hemos cambiado al jugador de equipo,ya los hemos borrado todos");
+
+		od.borrarTablas();
 
 	}
 

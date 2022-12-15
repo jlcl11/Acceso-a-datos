@@ -123,7 +123,7 @@ public class JugadorDao extends ObjetoDao {
 			ps.setFloat(5, salario);
 			ps.setString(6, posicion);
 			ps.setInt(7, eq_id);
-			ps.setInt(8, jugador_id);
+			ps.setInt(8, 2);
 			ps.executeUpdate();
 			
 		} catch (SQLException e) {
